@@ -20,6 +20,9 @@ function Input({
   ...props
 }: InputProps) {
   const [showPassword, setShowPassword] = useState(false);
+  const [isFocused, setIsFocused] = useState(false);
+  const [isHovered, setIsHovered] = useState(false);
+
   const isPasswordField = isPassword || type === "password";
 
   return (
@@ -42,7 +45,10 @@ function Input({
           )}
         </label>
       )}
+
       <div
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
         style={{
           display: "flex",
           alignItems: "center",
@@ -50,14 +56,23 @@ function Input({
           padding: "6px 12px",
           gap: "8px",
           borderRadius: "5px",
-          border: `1px solid ${error ? theme.colors.error : theme.colors.border}`,
+          border: `1px solid ${
+            error
+              ? theme.colors.error
+              : isFocused || isHovered
+              ? theme.colors.primary
+              : theme.colors.border
+          }`,
           backgroundColor: theme.colors.white,
           boxSizing: "border-box",
           width: "100%",
+          transition: "0.2s ease",
         }}
       >
         <input
           type={isPasswordField ? (showPassword ? "text" : "password") : type}
+          onFocus={() => setIsFocused(true)}
+          onBlur={() => setIsFocused(false)}
           style={{
             flex: 1,
             border: "none",
@@ -67,11 +82,12 @@ function Input({
             fontSize: "14px",
             lineHeight: "21px",
             color: theme.colors.textPrimary,
-            background: "transparent",
+            backgroundColor: "transparent",
             width: "100%",
           }}
           {...props}
         />
+
         {isPasswordField ? (
           <div
             onClick={() => setShowPassword(!showPassword)}
@@ -102,6 +118,7 @@ function Input({
           )
         )}
       </div>
+
       {error && (
         <span
           style={{

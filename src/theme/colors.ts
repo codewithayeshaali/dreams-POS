@@ -4,7 +4,7 @@ const colors = {
   secondary: "#092C4C",
 
 
-  success: "#28C76F",
+  success: "#3EB780",
   error: "#FF0000",
   warning: "#FE9F43",
   info: "#0EA5E9",
