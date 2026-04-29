@@ -3,11 +3,12 @@ import theme from "../../theme";
 
 type ButtonSize = "sm" | "md" | "lg";
 
-interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   children: ReactNode;
   fullWidth?: boolean;
   loading?: boolean;
   size?: ButtonSize;
+  className?: string;
 }
 
 function Button({
@@ -18,6 +19,7 @@ function Button({
   type = "button",
   size = "md",
   style,
+  className = "", 
   ...props
 }: ButtonProps) {
   const sizes = {
@@ -44,6 +46,7 @@ function Button({
     <button
       type={type}
       disabled={disabled || loading}
+      className={className}
       style={{
         width: fullWidth ? "100%" : "auto",
         ...currentSize,

@@ -1,28 +1,18 @@
-import theme from "../../theme";
-
 interface AuthFooterProps {
   text?: string;
 }
 
-function AuthFooter({
-  text = "Copyright © 2025 - DreamsPOS",
-}: AuthFooterProps) {
+export function AuthFooter({ text }: AuthFooterProps) {
+  const year = new Date().getFullYear();
+
   return (
-    <p
-      style={{
-        margin: 0,
-        textAlign: "center",
-        fontFamily: theme.typography.fontFamily.primary,
-        fontSize: theme.typography.fontSize.xs,
-        fontWeight: theme.typography.fontWeight.regular,
-        lineHeight: "18px",
-        color: theme.colors.textSecondary,
-        width: "100%",
-      }}
-    >
-      {text}
-    </p>
+    <footer className="flex w-full justify-center">
+      <p className="text-center text-[11px] leading-5 text-gray-500 sm:text-xs">
+        {text ?? `Copyrights © ${year} - DreamsPOS`}
+      </p>
+    </footer>
   );
 }
 
 export default AuthFooter;
+
