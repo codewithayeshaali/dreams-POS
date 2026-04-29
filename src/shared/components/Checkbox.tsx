@@ -14,9 +14,10 @@ function Checkbox({ label, style, ...props }: CheckboxProps) {
         gap: "8px",
         cursor: "pointer",
         fontFamily: theme.typography.fontFamily.primary,
-        fontSize: theme.typography.fontSize.sm,
+        fontSize: theme.typography.fontSize.base,
         fontWeight: theme.typography.fontWeight.regular,
         color: theme.colors.checkboxtext,
+        userSelect: "none",
       }}
     >
       <input
@@ -26,7 +27,10 @@ function Checkbox({ label, style, ...props }: CheckboxProps) {
           height: "16px",
           margin: 0,
           accentColor: theme.colors.primary,
+          backgroundColor: theme.colors.white,
+          colorScheme: "light",
           cursor: "pointer",
+          flexShrink: 0,
           ...style,
         }}
         {...props}

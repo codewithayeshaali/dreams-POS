@@ -1,21 +1,19 @@
-import Checkbox from "../shared/components/Checkbox";
-
 const colors = {
   primary: "#FE9F43",
-  primaryDark: "#F6861F",
+  primaryDark: "#E04F16",
   secondary: "#092C4C",
-  primaryicon: "#212B36",
+
 
   success: "#28C76F",
-  error: "#EA5455",
+  error: "#FF0000",
   warning: "#FE9F43",
   info: "#0EA5E9",
 
   white: "#FFFFFF",
   black: "#000000",
 
-  textPrimary: "#111827",
-  textSecondary: "#6B7280",
+  textPrimary: "#212B36",
+  textSecondary: "#646B72",
   textMuted: "#9CA3AF",
   checkboxtext: "#646B72",
 
@@ -31,3 +29,4 @@ const colors = {
 };
 
 export default colors;
+

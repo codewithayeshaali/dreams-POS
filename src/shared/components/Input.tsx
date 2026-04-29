@@ -17,11 +17,9 @@ function Input({
   rightIcon,
   isPassword = false,
   type,
-  style,
   ...props
 }: InputProps) {
   const [showPassword, setShowPassword] = useState(false);
-
   const isPasswordField = isPassword || type === "password";
 
   return (
@@ -38,7 +36,10 @@ function Input({
             color: theme.colors.textPrimary,
           }}
         >
-          {label}
+          {label.replace(" *", "")}{" "}
+          {label.includes("*") && (
+            <span style={{ color: theme.colors.error }}>*</span>
+          )}
         </label>
       )}
       <div
@@ -49,22 +50,14 @@ function Input({
           padding: "6px 12px",
           gap: "8px",
           borderRadius: "5px",
-          border: `1px solid ${
-            error ? theme.colors.error : theme.colors.border
-          }`,
+          border: `1px solid ${error ? theme.colors.error : theme.colors.border}`,
           backgroundColor: theme.colors.white,
           boxSizing: "border-box",
           width: "100%",
         }}
       >
         <input
-          type={
-            isPasswordField
-              ? showPassword
-                ? "text"
-                : "password"
-              : type
-          }
+          type={isPasswordField ? (showPassword ? "text" : "password") : type}
           style={{
             flex: 1,
             border: "none",
@@ -75,6 +68,7 @@ function Input({
             lineHeight: "21px",
             color: theme.colors.textPrimary,
             background: "transparent",
+            width: "100%",
           }}
           {...props}
         />
@@ -87,6 +81,7 @@ function Input({
               justifyContent: "center",
               cursor: "pointer",
               color: theme.colors.textSecondary,
+              flexShrink: 0,
             }}
           >
             {showPassword ? <LuEye size={16} /> : <LuEyeOff size={16} />}
@@ -99,6 +94,7 @@ function Input({
                 alignItems: "center",
                 justifyContent: "center",
                 color: theme.colors.textSecondary,
+                flexShrink: 0,
               }}
             >
               {rightIcon}

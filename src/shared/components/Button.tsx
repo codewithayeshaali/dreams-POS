@@ -4,7 +4,7 @@ import theme from "../../theme";
 type ButtonSize = "sm" | "md" | "lg";
 
 export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-  children: ReactNode;
+  children?: ReactNode;
   fullWidth?: boolean;
   loading?: boolean;
   size?: ButtonSize;
@@ -19,28 +19,14 @@ function Button({
   type = "button",
   size = "md",
   style,
-  className = "", 
+  className = "",
   ...props
 }: ButtonProps) {
   const sizes = {
-    sm: {
-      padding: "6px 12px",
-      fontSize: theme.typography.fontSize.xs,
-      minHeight: "32px",
-    },
-    md: {
-      padding: "8px 16px",
-      fontSize: theme.typography.fontSize.sm,
-      minHeight: "37px",
-    },
-    lg: {
-      padding: "10px 20px",
-      fontSize: theme.typography.fontSize.md,
-      minHeight: "44px",
-    },
+    sm: { padding: "6px 12px", fontSize: "12px", minHeight: "32px" },
+    md: { padding: "8px 16px", fontSize: "14px", minHeight: "37px" },
+    lg: { padding: "10px 20px", fontSize: "16px", minHeight: "44px" },
   };
-
-  const currentSize = sizes[size];
 
   return (
     <button
@@ -49,7 +35,7 @@ function Button({
       className={className}
       style={{
         width: fullWidth ? "100%" : "auto",
-        ...currentSize,
+        ...sizes[size],
         border: `1px solid ${theme.colors.primary}`,
         borderRadius: theme.radius.md,
         backgroundColor: theme.colors.primary,
@@ -76,7 +62,6 @@ function Button({
 }
 
 export default Button;
-
 
 
 

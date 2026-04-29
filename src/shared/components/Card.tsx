@@ -8,12 +8,7 @@ interface CardProps {
   padding?: string;
 }
 
-function Card({
-  children,
-  title,
-  subtitle,
-  padding = "24px",
-}: CardProps) {
+function Card({ children, title, subtitle, padding = "40px" }: CardProps) {
   return (
     <div
       style={{
@@ -23,6 +18,7 @@ function Card({
         borderRadius: theme.radius.xl,
         boxShadow: theme.shadows.sm,
         padding,
+        boxSizing: "border-box",
       }}
     >
       {(title || subtitle) && (
@@ -40,7 +36,6 @@ function Card({
               {title}
             </h3>
           )}
-
           {subtitle && (
             <p
               style={{
@@ -55,7 +50,6 @@ function Card({
           )}
         </div>
       )}
-
       {children}
     </div>
   );

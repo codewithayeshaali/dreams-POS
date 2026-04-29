@@ -6,9 +6,9 @@ export interface AuthHeaderProps {
 
 export function AuthHeader({ logo }: AuthHeaderProps) {
   if (!logo) return null;
-
-  return <div className="flex w-full justify-center">{logo}</div>;
+  return (
+    <div style={{ display: "flex", width: "100%", justifyContent: "center", alignItems: "center" }}>
+      {logo}
+    </div>
+  );
 }
-
-
-

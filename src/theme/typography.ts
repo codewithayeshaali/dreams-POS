@@ -1,6 +1,6 @@
 const typography = {
   fontFamily: {
-    primary: "Nunito, sans-serif",
+    primary: "Nunito Sans",
   },
 
   fontSize: {

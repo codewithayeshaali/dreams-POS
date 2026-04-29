@@ -1,4 +1,3 @@
-// components/AuthLayout.tsx  ← NEW separate file
 import type { ReactNode } from "react";
 import bgImage from "../assets/image/bg.png";
 

@@ -1,4 +1,5 @@
-import Button, {type ButtonProps } from "./Button";
+import type React from "react";
+import Button, { type ButtonProps } from "./Button";
 import { FcGoogle } from "react-icons/fc";
 import { FaFacebook, FaApple } from "react-icons/fa";
 
@@ -15,48 +16,46 @@ const providerLabel: Record<SocialProvider, string> = {
   apple: "Sign in with Apple",
 };
 
+const providerStyles: Record<SocialProvider, React.CSSProperties> = {
+  facebook: { backgroundColor: "#155EEF", borderColor: "#155EEF", color: "#ffffff" },
+  google:   { backgroundColor: "#ffffff", borderColor: "#E6EAED", color: "#374151" },
+  apple:    { backgroundColor: "#1B2850", borderColor: "#1B2850", color: "#ffffff" },
+};
+
 export function SocialButton({
   provider,
   mode = "icon",
   children,
-  className = "",
+  style,
   ...props
 }: SocialButtonProps) {
   const iconOnly = mode === "icon";
-
-  const providerStyles = {
-    google: "bg-white hover:bg-gray-50 text-gray-800 border",
-    facebook: "bg-[#1877F2] hover:bg-[#166FE5] text-white border-none",
-    apple: "bg-black hover:bg-neutral-800 text-white border-none",
-  };
 
   return (
     <Button
       {...props}
       aria-label={providerLabel[provider]}
-      className={`
-        flex-1 flex items-center justify-center gap-2
-        rounded-lg transition-all duration-200
-        ${iconOnly ? "h-[54px]" : "w-full h-[48px] px-4"}
-        ${providerStyles[provider]}
-        active:scale-[0.97]
-        ${className}
-      `}
+      fullWidth
+      style={{
+        height: iconOnly ? "54px" : "48px",
+        borderRadius: "8px",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        gap: "8px",
+        flex: 1,
+        transition: "opacity 0.2s ease",
+        ...providerStyles[provider],
+        ...style,
+      }}
     >
-      <span className="flex items-center justify-center">
-        {provider === "google" && (
-          <FcGoogle className="w-[20px] h-[20px]" />
-        )}
-        {provider === "facebook" && (
-          <FaFacebook className="w-[20px] h-[20px]" />
-        )}
-        {provider === "apple" && (
-          <FaApple className="w-[20px] h-[20px]" />
-        )}
+      <span style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
+        {provider === "google"   && <FcGoogle size={20} />}
+        {provider === "facebook" && <FaFacebook size={20} />}
+        {provider === "apple"    && <FaApple size={20} />}
       </span>
-
       {!iconOnly && (
-        <span className="text-sm font-medium">
+        <span style={{ fontSize: "14px", fontWeight: 500 }}>
           {children ?? providerLabel[provider]}
         </span>
       )}
