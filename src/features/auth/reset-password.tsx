@@ -9,6 +9,7 @@ import { AuthFooter } from "../../shared/components/AuthFooter";
 import theme from "../../theme";
 import logo from "../../assets/image/logo.png";
 import bg from "../../assets/image/bg.png";
+import { resetPassword } from "../../../services/authService";
 
 function ResetPassword() {
   const navigate = useNavigate();
@@ -48,18 +49,22 @@ function ResetPassword() {
     setLoading(true);
 
     setTimeout(() => {
-      const email = localStorage.getItem("reset_email");
+  const email = localStorage.getItem("reset_email");
 
-      console.log("Password reset for:", email);
-      console.log("New password:", form.password);
+  if (!email) {
+    alert("Reset session expired");
+    navigate("/forgot-password");
+    return;
+  }
 
-      localStorage.removeItem("reset_email");
+  resetPassword(email, form.password);
 
-      setLoading(false);
+  localStorage.removeItem("reset_email");
 
+  setLoading(false);
 
-      navigate("/success");
-    }, 1500);
+  navigate("/success");
+}, 1500);
   };
 
   return (
