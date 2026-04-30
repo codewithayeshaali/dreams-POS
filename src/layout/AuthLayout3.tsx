@@ -40,7 +40,7 @@ export function AuthLayout3({
 
         @media (min-width: 641px) and (max-width: 900px) {
           .auth3-left {
-            width: 65% !important;
+            width: 100% !important;
             padding: 32px 40px !important;
           }
         }

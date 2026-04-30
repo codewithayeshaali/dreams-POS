@@ -29,9 +29,9 @@ function UserSignIn() {
     try {
       const user = login(email, password);
       if (!user.isEmailVerified) {
-        navigate("/email-verification");
+        navigate("/user/email-verification");
       } else if (user.is2FAEnabled) {
-        navigate("/two-step-verification");
+        navigate("/user/two-step-verification");
       } else {
         navigate("/dashboard");
       }
@@ -119,7 +119,7 @@ function UserSignIn() {
                 onChange={(e) => setRememberMe(e.target.checked)}
               />
               <Link
-                to="/forgot-password"
+                to="/user/forgot-password"
                 style={{
                   fontSize: theme.typography.fontSize.sm,
                   fontWeight: theme.typography.fontWeight.semibold,
@@ -149,7 +149,7 @@ function UserSignIn() {
         >
           New on our platform?{" "}
           <Link
-            to="/usersignup"
+            to="/user/signup"
             style={{
               fontWeight: theme.typography.fontWeight.semibold,
               textDecoration: "none",

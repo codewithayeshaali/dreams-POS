@@ -3,7 +3,7 @@ import type { ReactNode } from "react";
 import bgImage from "../assets/image/bg.png";
 
 interface AuthLayoutProps {
-  header?: ReactNode; // fixed: was "logo" in interface but "header" in destructure
+  header?: ReactNode;
   footer?: ReactNode;
   children?: ReactNode;
 }

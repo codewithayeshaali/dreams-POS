@@ -1,18 +1,19 @@
 import { useState, useEffect } from "react";
-import OtpPin from "../../shared/components/OtpPin";
+import { useNavigate } from "react-router-dom";
 import Button from "../../shared/components/Button";
+import OtpPin from "../../shared/components/OtpPin";
 import Card from "../../shared/components/Card";
 import { AuthHeader } from "../../shared/components/AuthHeader";
 import { AuthFooter } from "../../shared/components/AuthFooter";
+import { AuthLayout } from "../../layout/AuthLayout2";
 import theme from "../../theme";
 import logo from "../../assets/image/logo.png";
-import bg from "../../assets/image/bg.png";
-import { useNavigate } from "react-router-dom";
+import illustration from "../../assets/image/2step.png";
 import { getAuthUser, enable2FA } from "../../services/authService";
 
 const TIMER_SECONDS = 60;
 
-function TwoStepVerification() {
+function UserTwoStepVerification() {
   const [otp, setOtp] = useState<string[]>(["", "", "", ""]);
   const [loading, setLoading] = useState(false);
   const [timer, setTimer] = useState(TIMER_SECONDS);
@@ -32,9 +33,7 @@ function TwoStepVerification() {
   }, [timer]);
 
   const formatTime = (seconds: number) => {
-    const m = Math.floor(seconds / 60)
-      .toString()
-      .padStart(2, "0");
+    const m = Math.floor(seconds / 60).toString().padStart(2, "0");
     const s = (seconds % 60).toString().padStart(2, "0");
     return `${m}:${s}`;
   };
@@ -59,7 +58,6 @@ function TwoStepVerification() {
 
     try {
       const updatedUser = enable2FA(user.email);
-
       console.log("2FA verified:", updatedUser);
       navigate("/dashboard");
     } catch (err: any) {
@@ -68,48 +66,10 @@ function TwoStepVerification() {
       setLoading(false);
     }
   };
-  return (
-    <div
-      style={{
-        position: "relative",
-        width: "100%",
-        minHeight: "100vh",
-        overflow: "auto",
-        backgroundColor: "#ffffff",
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        padding: "24px 16px 24px",
-        fontFamily: theme.typography.fontFamily.primary,
-        boxSizing: "border-box",
-      }}
-    >
-      <img
-        src={bg}
-        alt=""
-        aria-hidden="true"
-        style={{
-          position: "absolute",
-          bottom: 0,
-          left: 0,
-          width: "100%",
-          height: "60%",
-          objectFit: "cover",
-          objectPosition: "center top",
-          zIndex: 0,
-          pointerEvents: "none",
-        }}
-      />
 
-      <div
-        style={{
-          position: "relative",
-          zIndex: 1,
-          width: "100%",
-          flexShrink: 0,
-          marginBottom: "139px",
-        }}
-      >
+  return (
+    <AuthLayout
+      header={
         <AuthHeader
           logo={
             <img
@@ -119,21 +79,18 @@ function TwoStepVerification() {
             />
           }
         />
-      </div>
-
-      <div
-        style={{
-          flex: 1,
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          width: "100%",
-          position: "relative",
-          zIndex: 1,
-        }}
-      >
+      }
+      footer={<AuthFooter />}
+      illustrationSrc={illustration}
+    >
+      <div style={{ width: "100%" }}>
         <div
-          style={{ width: "100%", maxWidth: "500px", boxSizing: "border-box" }}
+          style={{
+            width: "100%",
+            maxWidth: "500px",
+            boxSizing: "border-box",
+            margin: "0 auto",
+          }}
         >
           <Card padding="40px">
             <div style={{ marginBottom: "20px" }}>
@@ -156,19 +113,13 @@ function TwoStepVerification() {
                   fontFamily: theme.typography.fontFamily.primary,
                 }}
               >
-                Enter the OTP sent to ******doe@example.com to confirm your
-                account.{" "}
+                Enter the OTP sent to ******doe@example.com to confirm your account.
               </p>
             </div>
 
             <form onSubmit={handleSubmit}>
-              <div
-                style={{
-                  display: "flex",
-                  flexDirection: "column",
-                  gap: "16px",
-                }}
-              >
+              <div style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
+
                 <OtpPin length={4} value={otp} onChange={setOtp} />
 
                 <div
@@ -187,7 +138,6 @@ function TwoStepVerification() {
                         alignItems: "center",
                         gap: "6px",
                         backgroundColor: `${theme.colors.error}15`,
-                        border: `none`,
                         borderRadius: "5px",
                         padding: "4px 12px",
                       }}
@@ -231,9 +181,7 @@ function TwoStepVerification() {
                     <span
                       onClick={handleResend}
                       style={{
-                        color: canResend
-                          ? theme.colors.textPrimary
-                          : theme.colors.textSecondary,
+                        color: canResend ? theme.colors.textPrimary : theme.colors.textSecondary,
                         fontWeight: theme.typography.fontWeight.semibold,
                         cursor: canResend ? "pointer" : "not-allowed",
                         opacity: canResend ? 1 : 0.5,
@@ -248,17 +196,14 @@ function TwoStepVerification() {
                 <Button type="submit" fullWidth size="lg" loading={loading}>
                   Submit
                 </Button>
+
               </div>
             </form>
           </Card>
         </div>
       </div>
-
-      <div style={{ width: "100%", zIndex: 1, marginTop: "174px" }}>
-        <AuthFooter />
-      </div>
-    </div>
+    </AuthLayout>
   );
 }
 
-export default TwoStepVerification;
+export default UserTwoStepVerification;

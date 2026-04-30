@@ -49,22 +49,22 @@ function ResetPassword() {
     setLoading(true);
 
     setTimeout(() => {
-  const email = localStorage.getItem("reset_email");
+      const email = localStorage.getItem("reset_email");
 
-  if (!email) {
-    alert("Reset session expired");
-    navigate("/forgot-password");
-    return;
-  }
+      if (!email) {
+        alert("Reset session expired");
+        navigate("/forgot-password");
+        return;
+      }
 
-  resetPassword(email, form.password);
+      resetPassword(email, form.password);
 
-  localStorage.removeItem("reset_email");
+      localStorage.removeItem("reset_email");
 
-  setLoading(false);
+      setLoading(false);
 
-  navigate("/success");
-}, 1500);
+      navigate("/success");
+    }, 1500);
   };
 
   return (
@@ -99,7 +99,9 @@ function ResetPassword() {
       />
 
       <div style={{ position: "relative", zIndex: 1, marginBottom: "100px" }}>
-        <AuthHeader logo={<img src={logo} alt="logo" style={{ height: "40px" }} />} />
+        <AuthHeader
+          logo={<img src={logo} alt="logo" style={{ height: "40px" }} />}
+        />
       </div>
 
       <div
@@ -114,19 +116,25 @@ function ResetPassword() {
       >
         <div style={{ width: "100%", maxWidth: "500px" }}>
           <Card padding="40px">
-
             <div style={{ marginBottom: "20px" }}>
               <h2 style={{ margin: 0, fontSize: theme.typography.fontSize.xl }}>
                 Reset Password
               </h2>
-              <p style={{ marginTop: "6px", color: theme.colors.textSecondary }}>
+              <p
+                style={{ marginTop: "6px", color: theme.colors.textSecondary }}
+              >
                 Create a new password for your account
               </p>
             </div>
 
             <form onSubmit={handleSubmit}>
-              <div style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
-
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: "16px",
+                }}
+              >
                 <Input
                   label="New Password *"
                   type="password"
@@ -152,7 +160,6 @@ function ResetPassword() {
                 <Button type="submit" fullWidth size="lg" loading={loading}>
                   Reset Password
                 </Button>
-
               </div>
             </form>
 
@@ -176,7 +183,6 @@ function ResetPassword() {
                 Login
               </Link>
             </p>
-
           </Card>
         </div>
       </div>

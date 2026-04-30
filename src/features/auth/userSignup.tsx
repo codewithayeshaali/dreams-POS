@@ -51,7 +51,7 @@ function UserSignUp() {
     setTimeout(() => {
       try {
         signup({ name: form.name, email: form.email, password: form.password });
-        navigate("/signin");
+        navigate("/user/signin");
       } catch (err: any) {
         alert(err.message);
       } finally {
@@ -196,7 +196,7 @@ function UserSignUp() {
         >
           New on our platform?{" "}
           <Link
-            to="/signin"
+            to="/user/signin"
             style={{
               fontWeight: theme.typography.fontWeight.semibold,
               textDecoration: "none",

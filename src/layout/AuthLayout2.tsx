@@ -18,15 +18,13 @@ export function AuthLayout({
     <>
       <style>{`
        .auth-layout-left {
-  scrollbar-width: none; /* Firefox */
-  -ms-overflow-style: none; /* IE */
+  scrollbar-width: none;
+  -ms-overflow-style: none; 
 }
 
 .auth-layout-left::-webkit-scrollbar {
-  display: none; /* Chrome, Safari */
+  display: none; 
 }
-
-        /* Mobile — hide right panel, full width left */
         @media (max-width: 640px) {
           .auth-layout-right {
             display: none !important;
@@ -36,8 +34,6 @@ export function AuthLayout({
             padding: 24px 20px !important;
           }
         }
-
-        /* Tablet portrait — hide right panel too, form centered */
         @media (min-width: 641px) and (max-width: 900px) {
           .auth-layout-right {
             display: none !important;
@@ -47,8 +43,6 @@ export function AuthLayout({
             padding: 32px 48px !important;
           }
         }
-
-        /* Tablet landscape & desktop — show both panels */
         @media (min-width: 901px) {
           .auth-layout-right {
             display: flex !important;

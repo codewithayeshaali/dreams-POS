@@ -78,7 +78,7 @@ function Register() {
 
         console.log("User registered:", form);
 
-        navigate("/signin"); // redirect after success
+        navigate("/signin"); 
       } catch (err: any) {
         alert(err.message);
       } finally {
@@ -136,7 +136,6 @@ function Register() {
       >
         <div style={{ width: "100%", maxWidth: "500px" }}>
           <Card padding="40px">
-
             <div style={{ marginBottom: "20px" }}>
               <h2
                 style={{
@@ -149,13 +148,21 @@ function Register() {
                 Register
               </h2>
 
-              <p style={{ marginTop: "6px", color: theme.colors.textSecondary }}>
+              <p
+                style={{ marginTop: "6px", color: theme.colors.textSecondary }}
+              >
                 Create New Dreamspos Account
               </p>
             </div>
 
             <form onSubmit={handleSubmit}>
-              <div style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: "16px",
+                }}
+              >
                 <Input
                   label="Name *"
                   value={form.name}
@@ -195,7 +202,9 @@ function Register() {
                   fullWidth
                 />
 
-                <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
+                <div
+                  style={{ display: "flex", alignItems: "center", gap: "6px" }}
+                >
                   <Checkbox
                     checked={termPrivacy}
                     onChange={(e) => setTermPrivacy(e.target.checked)}
@@ -217,7 +226,6 @@ function Register() {
                   </span>
                 </div>
 
-          
                 <Button type="submit" fullWidth size="lg" loading={loading}>
                   Sign up
                 </Button>
@@ -252,11 +260,17 @@ function Register() {
                 margin: "20px 0",
               }}
             >
-              <div style={{ width: "21px", height: "1px", background: "#E6EAED" }} />
-              <span style={{ fontSize: "14px", color: theme.colors.textSecondary }}>
+              <div
+                style={{ width: "21px", height: "1px", background: "#E6EAED" }}
+              />
+              <span
+                style={{ fontSize: "14px", color: theme.colors.textSecondary }}
+              >
                 OR
               </span>
-              <div style={{ width: "21px", height: "1px", background: "#E6EAED" }} />
+              <div
+                style={{ width: "21px", height: "1px", background: "#E6EAED" }}
+              />
             </div>
 
             <div style={{ display: "flex", gap: "12px", width: "100%" }}>

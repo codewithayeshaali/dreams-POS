@@ -1,5 +1,5 @@
 import { AuthLayout3 } from "../../layout/AuthLayout3";
-import photo from "../../assets/image/adminsignin.png"; 
+import photo from "../../assets/image/adminsignin.png";
 
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
@@ -16,77 +16,32 @@ import { AuthFooter } from "../../shared/components/AuthFooter";
 import theme from "../../theme";
 import logo from "../../assets/image/logo.png";
 
-function AdminSignUp() {
+function AdminSignin() {
   const navigate = useNavigate();
- 
-   const [form, setForm] = useState({
-     name: "",
-     email: "",
-     password: "",
-     confirm: "",
-   });
- 
-   const [errors, setErrors] = useState<Record<string, string>>({});
-   const [termPrivacy, setTermPrivacy] = useState(false);
-   const [loading, setLoading] = useState(false);
- 
-   const handleChange = (key: string, value: string) => {
-     setForm((prev) => ({ ...prev, [key]: value }));
-   };
- 
-   const validate = () => {
-     const newErrors: Record<string, string> = {};
- 
-     if (!form.name.trim()) {
-       newErrors.name = "Name is required";
-     }
- 
-     if (!form.email.includes("@")) {
-       newErrors.email = "Enter a valid email";
-     }
- 
-     if (form.password.length < 6) {
-       newErrors.password = "Password must be at least 6 characters";
-     }
- 
-     if (form.confirm !== form.password) {
-       newErrors.confirm = "Passwords do not match";
-     }
- 
-     if (!termPrivacy) {
-       newErrors.terms = "You must accept Terms & Privacy";
-     }
- 
-     setErrors(newErrors);
-     return Object.keys(newErrors).length === 0;
-   };
- 
-   const handleSubmit = (e: React.SyntheticEvent) => {
-     e.preventDefault();
- 
-     if (!validate()) return;
- 
-     setLoading(true);
- 
-     setTimeout(() => {
-       try {
-         signup({
-           name: form.name,
-           email: form.email,
-           password: form.password,
-         });
- 
-         console.log("User registered:", form);
- 
-         navigate("/signin"); // redirect after success
-       } catch (err: any) {
-         alert(err.message);
-       } finally {
-         setLoading(false);
-       }
-     }, 1000);
-   };
- 
+
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [rememberMe, setRememberMe] = useState(false);
+  const [loading, setLoading] = useState(false);
+
+  const handleSubmit = (e: React.SyntheticEvent) => {
+    e.preventDefault();
+    setLoading(true);
+    try {
+      const user = login(email, password);
+      if (!user.isEmailVerified) {
+        navigate("/admin/email-verification");
+      } else if (user.is2FAEnabled) {
+        navigate("/admin/two-step-verification");
+      } else {
+        navigate("/dashboard");
+      }
+    } catch (err: any) {
+      alert(err.message);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <AuthLayout3
@@ -105,9 +60,7 @@ function AdminSignUp() {
       imageSrc={photo}
     >
       <div style={{ width: "100%" }}>
-
-        {/* Title */}
-        <div style={{ marginBottom: "28px" }}>
+        <div style={{ marginBottom: "20px" }}>
           <h2
             style={{
               margin: 0,
@@ -121,7 +74,7 @@ function AdminSignUp() {
           </h2>
           <p
             style={{
-              margin: "6px 0 0",
+              margin: "4px 0 0",
               fontSize: theme.typography.fontSize.base,
               color: theme.colors.textSecondary,
               fontFamily: theme.typography.fontFamily.primary,
@@ -131,14 +84,14 @@ function AdminSignUp() {
           </p>
         </div>
 
-        {/* Form */}
         <form onSubmit={handleSubmit}>
-          <div style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
-
+          <div
+            style={{ display: "flex", flexDirection: "column", gap: "16px" }}
+          >
             <Input
               label="Email *"
               type="email"
-              value={form.email}
+              value={email}
               onChange={(e) => setEmail(e.target.value)}
               fullWidth
               rightIcon={<LuMail size={16} />}
@@ -147,7 +100,7 @@ function AdminSignUp() {
             <Input
               label="Password *"
               isPassword
-              value={form.password}
+              value={password}
               onChange={(e) => setPassword(e.target.value)}
               fullWidth
             />
@@ -161,11 +114,11 @@ function AdminSignUp() {
             >
               <Checkbox
                 label="Remember Me"
-                checked={form.rememberMe}
+                checked={rememberMe}
                 onChange={(e) => setRememberMe(e.target.checked)}
               />
               <Link
-                to="/forgot-password"
+                to="/admin/forgot-password"
                 style={{
                   fontSize: theme.typography.fontSize.sm,
                   fontWeight: theme.typography.fontWeight.semibold,
@@ -181,11 +134,9 @@ function AdminSignUp() {
             <Button type="submit" fullWidth size="lg" loading={loading}>
               Sign In
             </Button>
-
           </div>
         </form>
 
-        {/* Register link */}
         <p
           style={{
             marginTop: "20px",
@@ -196,7 +147,7 @@ function AdminSignUp() {
         >
           New on our platform?{" "}
           <Link
-            to="/adminSignUp"
+            to="/admin/signup"
             style={{
               fontWeight: theme.typography.fontWeight.semibold,
               textDecoration: "none",
@@ -207,7 +158,6 @@ function AdminSignUp() {
           </Link>
         </p>
 
-        {/* OR divider */}
         <div
           style={{
             display: "flex",
@@ -230,16 +180,14 @@ function AdminSignUp() {
           <div style={{ flex: 1, height: "1px", backgroundColor: "#E6EAED" }} />
         </div>
 
-        {/* Social buttons */}
         <div style={{ display: "flex", gap: "12px" }}>
           <SocialButton provider="facebook" mode="icon" />
           <SocialButton provider="google" mode="icon" />
           <SocialButton provider="apple" mode="icon" />
         </div>
-
       </div>
     </AuthLayout3>
   );
 }
 
-export default AdminSignUp;
+export default AdminSignin;

@@ -1,7 +1,5 @@
 const USERS_KEY = "users";
 const AUTH_KEY = "auth_user";
-
-// ---------- Helpers ----------
 export const getUsers = (): any[] => {
   try {
     return JSON.parse(localStorage.getItem(USERS_KEY) || "[]");
@@ -21,8 +19,6 @@ export const getAuthUser = () => {
     return null;
   }
 };
-
-// ---------- SIGNUP ----------
 export const signup = (user: {
   name: string;
   email: string;
@@ -46,8 +42,6 @@ export const signup = (user: {
 
   return newUser;
 };
-
-// ---------- LOGIN ----------
 export const login = (email: string, password: string) => {
   const users = getUsers();
 
@@ -62,13 +56,9 @@ export const login = (email: string, password: string) => {
   localStorage.setItem(AUTH_KEY, JSON.stringify(user));
   return user;
 };
-
-// ---------- LOGOUT ----------
 export const logout = () => {
   localStorage.removeItem(AUTH_KEY);
 };
-
-// ---------- EMAIL VERIFICATION ----------
 export const verifyEmail = (email: string) => {
   const users = getUsers();
 
@@ -91,8 +81,6 @@ export const verifyEmail = (email: string) => {
 
   return updatedUser;
 };
-
-// ---------- 2FA ----------
 export const enable2FA = (email: string) => {
   const users = getUsers();
 
@@ -116,7 +104,6 @@ export const enable2FA = (email: string) => {
   return updatedUser;
 };
 
-// ---------- RESET PASSWORD ----------
 export const resetPassword = (email: string, newPassword: string) => {
   const users = getUsers();
 
@@ -136,7 +123,6 @@ export const resetPassword = (email: string, newPassword: string) => {
 
   saveUsers(updatedUsers);
 
-  // optional: keep user logged in synced
   localStorage.setItem(AUTH_KEY, JSON.stringify(updatedUser));
 
   return updatedUser;

@@ -18,7 +18,7 @@ function EmailVerification() {
   const [timer, setTimer] = useState(TIMER_SECONDS);
   const [canResend, setCanResend] = useState(false);
   const navigate = useNavigate();
-const user = getAuthUser();
+  const user = getAuthUser();
 
   useEffect(() => {
     if (timer <= 0) {
@@ -32,7 +32,9 @@ const user = getAuthUser();
   }, [timer]);
 
   const formatTime = (seconds: number) => {
-    const m = Math.floor(seconds / 60).toString().padStart(2, "0");
+    const m = Math.floor(seconds / 60)
+      .toString()
+      .padStart(2, "0");
     const s = (seconds % 60).toString().padStart(2, "0");
     return `${m}:${s}`;
   };
@@ -45,33 +47,32 @@ const user = getAuthUser();
   };
 
   const handleSubmit = (e: React.SyntheticEvent) => {
-  e.preventDefault();
-  setLoading(true);
+    e.preventDefault();
+    setLoading(true);
 
-  const enteredOtp = otp.join("");
+    const enteredOtp = otp.join("");
 
-  if (enteredOtp !== "1234") {
-    alert("Invalid OTP");
-    setLoading(false);
-    return;
-  }
-
-  try {
-    const updatedUser = verifyEmail(user.email);
-
-    console.log("Email verified:", updatedUser);
-    if (updatedUser.is2FAEnabled) {
-      navigate("/two-step-verification");
-    } else {
-      navigate("/dashboard");
+    if (enteredOtp !== "1234") {
+      alert("Invalid OTP");
+      setLoading(false);
+      return;
     }
 
-  } catch (err: any) {
-    alert(err.message);
-  } finally {
-    setLoading(false);
-  }
-};
+    try {
+      const updatedUser = verifyEmail(user.email);
+
+      console.log("Email verified:", updatedUser);
+      if (updatedUser.is2FAEnabled) {
+        navigate("/two-step-verification");
+      } else {
+        navigate("/dashboard");
+      }
+    } catch (err: any) {
+      alert(err.message);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <div
@@ -137,7 +138,9 @@ const user = getAuthUser();
           zIndex: 1,
         }}
       >
-        <div style={{ width: "100%", maxWidth: "500px", boxSizing: "border-box" }}>
+        <div
+          style={{ width: "100%", maxWidth: "500px", boxSizing: "border-box" }}
+        >
           <Card padding="40px">
             <div style={{ marginBottom: "20px" }}>
               <h2
@@ -159,12 +162,18 @@ const user = getAuthUser();
                   fontFamily: theme.typography.fontFamily.primary,
                 }}
               >
-OTP sent to your Email Address ******doe@example.com              </p>
+                OTP sent to your Email Address ******doe@example.com{" "}
+              </p>
             </div>
 
             <form onSubmit={handleSubmit}>
-              <div style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
-
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: "16px",
+                }}
+              >
                 <OtpPin length={4} value={otp} onChange={setOtp} />
 
                 <div
@@ -227,7 +236,9 @@ OTP sent to your Email Address ******doe@example.com              </p>
                     <span
                       onClick={handleResend}
                       style={{
-                        color: canResend ? theme.colors.textPrimary : theme.colors.textSecondary,
+                        color: canResend
+                          ? theme.colors.textPrimary
+                          : theme.colors.textSecondary,
                         fontWeight: theme.typography.fontWeight.semibold,
                         cursor: canResend ? "pointer" : "not-allowed",
                         opacity: canResend ? 1 : 0.5,
@@ -239,12 +250,10 @@ OTP sent to your Email Address ******doe@example.com              </p>
                   </p>
                 </div>
 
-          
                 <Button type="submit" fullWidth size="lg" loading={loading}>
                   Verify & Proceed
                 </Button>
-
-              </div> 
+              </div>
             </form>
           </Card>
         </div>

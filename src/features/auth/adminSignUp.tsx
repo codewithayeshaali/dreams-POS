@@ -1,11 +1,10 @@
 import { AuthLayout3 } from "../../layout/AuthLayout3";
-import photo from "../../assets/image/adminsignup.png"; 
+import photo from "../../assets/image/adminsignup.png";
 
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { LuMail } from "react-icons/lu";
-import { LuUser} from "react-icons/lu";
-
+import { LuUser } from "react-icons/lu";
 
 import { signup } from "../../services/authService";
 
@@ -18,51 +17,52 @@ import { AuthFooter } from "../../shared/components/AuthFooter";
 import theme from "../../theme";
 import logo from "../../assets/image/logo.png";
 
-
 function AdminSignUp() {
- const navigate = useNavigate();
- 
-   const [form, setForm] = useState({
-     name: "",
-     email: "",
-     password: "",
-     confirm: "",
-   });
- 
-   const [errors, setErrors] = useState<Record<string, string>>({});
-   const [termPrivacy, setTermPrivacy] = useState(false);
-   const [loading, setLoading] = useState(false);
- 
-   const handleChange = (key: string, value: string) => {
-     setForm((prev) => ({ ...prev, [key]: value }));
-   };
- 
-   const validate = () => {
-     const newErrors: Record<string, string> = {};
-     if (!form.name.trim()) newErrors.name = "Name is required";
-     if (!form.email.includes("@")) newErrors.email = "Enter a valid email";
-     if (form.password.length < 6) newErrors.password = "Password must be at least 6 characters";
-     if (form.confirm !== form.password) newErrors.confirm = "Passwords do not match";
-     if (!termPrivacy) newErrors.terms = "You must accept Terms & Privacy";
-     setErrors(newErrors);
-     return Object.keys(newErrors).length === 0;
-   };
- 
-   const handleSubmit = (e: React.SyntheticEvent) => {
-     e.preventDefault();
-     if (!validate()) return;
-     setLoading(true);
-     setTimeout(() => {
-       try {
-         signup({ name: form.name, email: form.email, password: form.password });
-         navigate("/signin");
-       } catch (err: any) {
-         alert(err.message);
-       } finally {
-         setLoading(false);
-       }
-     }, 1000);
-   };
+  const navigate = useNavigate();
+
+  const [form, setForm] = useState({
+    name: "",
+    email: "",
+    password: "",
+    confirm: "",
+  });
+
+  const [errors, setErrors] = useState<Record<string, string>>({});
+  const [termPrivacy, setTermPrivacy] = useState(false);
+  const [loading, setLoading] = useState(false);
+
+  const handleChange = (key: string, value: string) => {
+    setForm((prev) => ({ ...prev, [key]: value }));
+  };
+
+  const validate = () => {
+    const newErrors: Record<string, string> = {};
+    if (!form.name.trim()) newErrors.name = "Name is required";
+    if (!form.email.includes("@")) newErrors.email = "Enter a valid email";
+    if (form.password.length < 6)
+      newErrors.password = "Password must be at least 6 characters";
+    if (form.confirm !== form.password)
+      newErrors.confirm = "Passwords do not match";
+    if (!termPrivacy) newErrors.terms = "You must accept Terms & Privacy";
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
+  const handleSubmit = (e: React.SyntheticEvent) => {
+    e.preventDefault();
+    if (!validate()) return;
+    setLoading(true);
+    setTimeout(() => {
+      try {
+        signup({ name: form.name, email: form.email, password: form.password });
+        navigate("/admin/signin");
+      } catch (err: any) {
+        alert(err.message);
+      } finally {
+        setLoading(false);
+      }
+    }, 1000);
+  };
   return (
     <AuthLayout3
       header={
@@ -80,7 +80,6 @@ function AdminSignUp() {
       imageSrc={photo}
     >
       <div style={{ width: "100%" }}>
-
         <div style={{ marginBottom: "20px" }}>
           <h2
             style={{
@@ -106,7 +105,9 @@ function AdminSignUp() {
         </div>
 
         <form onSubmit={handleSubmit}>
-          <div style={{ display: "flex", flexDirection: "column", gap: "14px" }}>
+          <div
+            style={{ display: "flex", flexDirection: "column", gap: "14px" }}
+          >
             <Input
               label="Name *"
               type="text"
@@ -186,7 +187,6 @@ function AdminSignUp() {
             <Button type="submit" fullWidth size="lg" loading={loading}>
               Sign Up
             </Button>
-
           </div>
         </form>
         <p
@@ -199,7 +199,7 @@ function AdminSignUp() {
         >
           New on our platform?{" "}
           <Link
-            to="/signin"
+            to="/admin/signin"
             style={{
               fontWeight: theme.typography.fontWeight.semibold,
               textDecoration: "none",
@@ -235,7 +235,6 @@ function AdminSignUp() {
           <SocialButton provider="google" mode="icon" />
           <SocialButton provider="apple" mode="icon" />
         </div>
-
       </div>
     </AuthLayout3>
   );

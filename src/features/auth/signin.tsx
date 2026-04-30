@@ -22,28 +22,27 @@ function SignIn() {
   const [password, setPassword] = useState("");
   const [rememberMe, setRememberMe] = useState(false);
   const [loading, setLoading] = useState(false);
-const handleSubmit = (e: React.SyntheticEvent) => {
-  e.preventDefault();
-  setLoading(true);
+  const handleSubmit = (e: React.SyntheticEvent) => {
+    e.preventDefault();
+    setLoading(true);
 
-  try {
-    const user = login(email, password);
-    console.log("Logged in:", user);
-    
-    if (!user.isEmailVerified) {
-      navigate("/email-verification");
-    } else if (user.is2FAEnabled) {
-      navigate("/two-step-verification");
-    } else {
-      navigate("/dashboard");
+    try {
+      const user = login(email, password);
+      console.log("Logged in:", user);
+
+      if (!user.isEmailVerified) {
+        navigate("/email-verification");
+      } else if (user.is2FAEnabled) {
+        navigate("/two-step-verification");
+      } else {
+        navigate("/dashboard");
+      }
+    } catch (err: any) {
+      alert(err.message);
+    } finally {
+      setLoading(false);
     }
-
-  } catch (err: any) {
-    alert(err.message);
-  } finally {
-    setLoading(false);
-  }
-};
+  };
 
   return (
     <div
@@ -92,7 +91,6 @@ const handleSubmit = (e: React.SyntheticEvent) => {
       >
         <div style={{ width: "100%", maxWidth: "500px" }}>
           <Card padding="40px">
-
             <div style={{ marginBottom: "20px" }}>
               <h2
                 style={{
@@ -105,13 +103,20 @@ const handleSubmit = (e: React.SyntheticEvent) => {
                 Sign In
               </h2>
 
-              <p style={{ marginTop: "6px", color: theme.colors.textSecondary }}>
+              <p
+                style={{ marginTop: "6px", color: theme.colors.textSecondary }}
+              >
                 Access your DreamsPOS account
               </p>
             </div>
             <form onSubmit={handleSubmit}>
-              <div style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
-
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: "16px",
+                }}
+              >
                 <Input
                   label="Email *"
                   type="email"
@@ -156,14 +161,16 @@ const handleSubmit = (e: React.SyntheticEvent) => {
                 <Button type="submit" fullWidth size="lg" loading={loading}>
                   Sign in
                 </Button>
-
               </div>
             </form>
 
-  
-            <p style={{ marginTop: "20px",
+            <p
+              style={{
+                marginTop: "20px",
                 fontSize: theme.typography.fontSize.sm,
-                color: theme.colors.textSecondary }}>
+                color: theme.colors.textSecondary,
+              }}
+            >
               New on our platform?{" "}
               <Link
                 to="/register"
@@ -177,7 +184,6 @@ const handleSubmit = (e: React.SyntheticEvent) => {
               </Link>
             </p>
 
-        
             <div
               style={{
                 display: "flex",
@@ -187,9 +193,21 @@ const handleSubmit = (e: React.SyntheticEvent) => {
                 margin: "20px 0",
               }}
             >
-              <div style={{ width: "21px", height: "1px", backgroundColor: "#E6EAED" }} />
+              <div
+                style={{
+                  width: "21px",
+                  height: "1px",
+                  backgroundColor: "#E6EAED",
+                }}
+              />
               <span style={{ fontSize: "14px", fontWeight: 600 }}>OR</span>
-              <div style={{ width: "21px", height: "1px", backgroundColor: "#E6EAED" }} />
+              <div
+                style={{
+                  width: "21px",
+                  height: "1px",
+                  backgroundColor: "#E6EAED",
+                }}
+              />
             </div>
 
             <div style={{ display: "flex", gap: "12px" }}>
@@ -197,7 +215,6 @@ const handleSubmit = (e: React.SyntheticEvent) => {
               <SocialButton provider="google" mode="icon" />
               <SocialButton provider="apple" mode="icon" />
             </div>
-
           </Card>
         </div>
       </div>

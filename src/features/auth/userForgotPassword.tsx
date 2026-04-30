@@ -1,74 +1,53 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-
 import Button from "../../shared/components/Button";
 import Input from "../../shared/components/Input";
 import Card from "../../shared/components/Card";
 import { AuthHeader } from "../../shared/components/AuthHeader";
 import { AuthFooter } from "../../shared/components/AuthFooter";
 import { AuthLayout } from "../../layout/AuthLayout2";
-
+import {  getUsers } from "../../services/authService";
 import theme from "../../theme";
 import logo from "../../assets/image/logo.png";
-import illustration from "../../assets/image/signin.png";
+import illustration from "../../assets/image/forgotpass.png";
+import { LuMail } from "react-icons/lu";
 
-import { resetPassword } from "../../services/authService";
-
-function UserResetPassword() {
-  const navigate = useNavigate();
-
-  const [form, setForm] = useState({
-    password: "",
-    confirmPassword: "",
-  });
-
-  const [errors, setErrors] = useState<Record<string, string>>({});
-  const [loading, setLoading] = useState(false);
-
-  const handleChange = (key: string, value: string) => {
-    setForm((prev) => ({ ...prev, [key]: value }));
-  };
-
-  const validate = () => {
-    const newErrors: Record<string, string> = {};
-
-    if (form.password.length < 6) {
-      newErrors.password = "Password must be at least 6 characters";
-    }
-
-    if (form.password !== form.confirmPassword) {
-      newErrors.confirmPassword = "Passwords do not match";
-    }
-
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
-  };
-
-  const handleSubmit = (e: React.SyntheticEvent) => {
+function UserForgotPassword() {
+ const [email, setEmail] = useState("");
+    const [loading, setLoading] = useState(false);
+    const navigate = useNavigate();
+  
+    const handleSubmit = (e: React.SyntheticEvent) => {
     e.preventDefault();
-
-    if (!validate()) return;
-
-    const email = localStorage.getItem("reset_email");
-
-    if (!email) {
-      alert("Reset session expired");
-      navigate("/user/forgot-password");
-      return;
-    }
-
     setLoading(true);
-
+  
     setTimeout(() => {
-      resetPassword(email, form.password);
-
-      localStorage.removeItem("reset_email");
-
-      setLoading(false);
-
-      navigate("/user/success");
-    }, 1500);
+      try {
+        const users = getUsers();
+  
+        const userExists = users.find((u: any) => u.email === email);
+  
+        if (!userExists) {
+          alert("User not found");
+          setLoading(false);
+          return;
+        }
+  
+        localStorage.setItem("reset_email", email);
+  
+        console.log("Reset email sent to:", email);
+  
+        navigate("/user/reset-password");
+  
+      } catch (err: any) {
+        alert(err.message);
+      } finally {
+        setLoading(false);
+      }
+    }, 800);
   };
+
+ 
 
   return (
     <AuthLayout
@@ -97,16 +76,27 @@ function UserResetPassword() {
         >
           <Card padding="40px">
             <div style={{ marginBottom: "20px" }}>
-              <h2 style={{ margin: 0, fontSize: theme.typography.fontSize.xl }}>
-                Reset Password
+              <h2
+                style={{
+                  margin: 0,
+                  fontSize: theme.typography.fontSize.xl,
+                  fontWeight: theme.typography.fontWeight.bold,
+                  color: theme.colors.textPrimary,
+                  fontFamily: theme.typography.fontFamily.primary,
+                }}
+              >
+                Forgot password?
               </h2>
               <p
                 style={{
-                  marginTop: "6px",
+                  margin: "6px 0 0",
+                  fontSize: theme.typography.fontSize.base,
                   color: theme.colors.textSecondary,
+                  fontFamily: theme.typography.fontFamily.primary,
                 }}
               >
-                Create a new password for your account
+                If you forgot your password, well, then we’ll email you
+                instructions to reset your password.
               </p>
             </div>
 
@@ -119,29 +109,24 @@ function UserResetPassword() {
                 }}
               >
                 <Input
-                  label="New Password *"
-                  type="password"
-                  isPassword
-                  value={form.password}
-                  error={errors.password}
-                  onChange={(e) => handleChange("password", e.target.value)}
+                  label="Email *"
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                   fullWidth
+                  rightIcon={<LuMail size={16} />}
                 />
-
-                <Input
-                  label="Confirm Password *"
-                  type="password"
-                  isPassword
-                  value={form.confirmPassword}
-                  error={errors.confirmPassword}
-                  onChange={(e) =>
-                    handleChange("confirmPassword", e.target.value)
-                  }
-                  fullWidth
-                />
+                <div
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "space-between",
+                    color: theme.colors.textSecondary,
+                  }}
+                ></div>
 
                 <Button type="submit" fullWidth size="lg" loading={loading}>
-                  Reset Password
+                  Submit
                 </Button>
               </div>
             </form>
@@ -152,6 +137,7 @@ function UserResetPassword() {
                 textAlign: "center",
                 fontSize: theme.typography.fontSize.sm,
                 color: theme.colors.textSecondary,
+                fontFamily: theme.typography.fontFamily.primary,
               }}
             >
               Return To{" "}
@@ -159,7 +145,7 @@ function UserResetPassword() {
                 to="/user/signin"
                 style={{
                   color: theme.colors.textPrimary,
-                  fontWeight: 600,
+                  fontWeight: theme.typography.fontWeight.semibold,
                   textDecoration: "none",
                 }}
               >
@@ -173,4 +159,4 @@ function UserResetPassword() {
   );
 }
 
-export default UserResetPassword;
+export default UserForgotPassword;

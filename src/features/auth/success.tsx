@@ -74,7 +74,9 @@ function Success() {
           zIndex: 1,
         }}
       >
-        <div style={{ width: "100%", maxWidth: "500px", boxSizing: "border-box" }}>
+        <div
+          style={{ width: "100%", maxWidth: "500px", boxSizing: "border-box" }}
+        >
           <Card padding="40px">
             <div
               style={{
@@ -135,11 +137,7 @@ function Success() {
               </p>
 
               <div style={{ width: "100%", marginTop: "8px" }}>
-                <Button
-                  fullWidth
-                  size="lg"
-                  onClick={() => navigate("/signIn")}
-                >
+                <Button fullWidth size="lg" onClick={() => navigate("/signin")}>
                   Back to Sign In
                 </Button>
               </div>

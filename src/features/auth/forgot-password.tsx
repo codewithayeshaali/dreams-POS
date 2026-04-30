@@ -13,40 +13,39 @@ import bg from "../../assets/image/bg.png";
 import { useNavigate } from "react-router-dom";
 import { getUsers } from "../../services/authService";
 
-function ForgetPassword() {
+function ForgotPassword() {
   const [email, setEmail] = useState("");
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   const handleSubmit = (e: React.SyntheticEvent) => {
-  e.preventDefault();
-  setLoading(true);
+    e.preventDefault();
+    setLoading(true);
 
-  setTimeout(() => {
-    try {
-      const users = getUsers();
+    setTimeout(() => {
+      try {
+        const users = getUsers();
 
-      const userExists = users.find((u: any) => u.email === email);
+        const userExists = users.find((u: any) => u.email === email);
 
-      if (!userExists) {
-        alert("User not found");
+        if (!userExists) {
+          alert("User not found");
+          setLoading(false);
+          return;
+        }
+
+        localStorage.setItem("reset_email", email);
+
+        console.log("Reset email sent to:", email);
+
+        navigate("/reset-password");
+      } catch (err: any) {
+        alert(err.message);
+      } finally {
         setLoading(false);
-        return;
       }
-
-      localStorage.setItem("reset_email", email);
-
-      console.log("Reset email sent to:", email);
-
-      navigate("/reset-password");
-
-    } catch (err: any) {
-      alert(err.message);
-    } finally {
-      setLoading(false);
-    }
-  }, 800);
-};
+    }, 800);
+  };
 
   return (
     <div
@@ -204,4 +203,4 @@ function ForgetPassword() {
   );
 }
 
-export default ForgetPassword;
+export default ForgotPassword;
