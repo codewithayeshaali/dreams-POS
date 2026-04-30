@@ -9,7 +9,7 @@ import { AuthFooter } from "../../shared/components/AuthFooter";
 import theme from "../../theme";
 import logo from "../../assets/image/logo.png";
 import bg from "../../assets/image/bg.png";
-import { resetPassword } from "../../../services/authService";
+import { resetPassword } from "../../services/authService";
 
 function ResetPassword() {
   const navigate = useNavigate();

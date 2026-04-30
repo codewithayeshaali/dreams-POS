@@ -1,7 +1,9 @@
 import {BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 
-import Signin from "./features/auth/signin";
-import Register from "./features/auth/register";
+import AdminSignin from "./features/auth/adminSignin";
+// import Register from "./features/auth/register";
+// import UserSignUp from "./features/auth/userSignup";
+import AdminSignUp from "./features/auth/adminSignup";
 import ForgotPassword from "./features/auth/forget-password";
 import EmailVerification from "./features/auth/email-verification";
 import ResetPassword from "./features/auth/reset-password";
@@ -24,9 +26,9 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-<Route path="/" element={<Signin />} />
-        <Route path="/signin" element={<Signin />} />
-        <Route path="/register" element={<Register />} />
+<Route path="/" element={<AdminSignin />} />
+        <Route path="/adminsignIn" element={<AdminSignin />} />
+        <Route path="/adminSignUp" element={<AdminSignUp />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/email-verification" element={<EmailVerification />} />
         <Route path="/reset-password" element={<ResetPassword />} />

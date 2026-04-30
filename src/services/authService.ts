@@ -1,15 +1,28 @@
 const USERS_KEY = "users";
 const AUTH_KEY = "auth_user";
 
+// ---------- Helpers ----------
 export const getUsers = (): any[] => {
-  return JSON.parse(localStorage.getItem(USERS_KEY) || "[]");
+  try {
+    return JSON.parse(localStorage.getItem(USERS_KEY) || "[]");
+  } catch {
+    return [];
+  }
 };
-
 
 export const saveUsers = (users: any[]) => {
   localStorage.setItem(USERS_KEY, JSON.stringify(users));
 };
 
+export const getAuthUser = () => {
+  try {
+    return JSON.parse(localStorage.getItem(AUTH_KEY) || "null");
+  } catch {
+    return null;
+  }
+};
+
+// ---------- SIGNUP ----------
 export const signup = (user: {
   name: string;
   email: string;
@@ -24,8 +37,8 @@ export const signup = (user: {
 
   const newUser = {
     ...user,
-    isEmailVerified: false,   
-    is2FAEnabled: false,      
+    isEmailVerified: false,
+    is2FAEnabled: false,
   };
 
   users.push(newUser);
@@ -34,6 +47,7 @@ export const signup = (user: {
   return newUser;
 };
 
+// ---------- LOGIN ----------
 export const login = (email: string, password: string) => {
   const users = getUsers();
 
@@ -46,49 +60,84 @@ export const login = (email: string, password: string) => {
   }
 
   localStorage.setItem(AUTH_KEY, JSON.stringify(user));
-
   return user;
 };
+
+// ---------- LOGOUT ----------
 export const logout = () => {
   localStorage.removeItem(AUTH_KEY);
 };
 
-export const getAuthUser = () => {
-  return JSON.parse(localStorage.getItem(AUTH_KEY) || "null");
-};
-
+// ---------- EMAIL VERIFICATION ----------
 export const verifyEmail = (email: string) => {
   const users = getUsers();
 
+  let updatedUser: any = null;
+
   const updatedUsers = users.map((u: any) => {
     if (u.email === email) {
-      return { ...u, isEmailVerified: true };
+      updatedUser = { ...u, isEmailVerified: true };
+      return updatedUser;
     }
     return u;
   });
 
+  if (!updatedUser) {
+    throw new Error("User not found");
+  }
+
   saveUsers(updatedUsers);
+  localStorage.setItem(AUTH_KEY, JSON.stringify(updatedUser));
 
-  const user = updatedUsers.find((u: any) => u.email === email);
-  localStorage.setItem(AUTH_KEY, JSON.stringify(user));
-
-  return user;
+  return updatedUser;
 };
 
+// ---------- 2FA ----------
 export const enable2FA = (email: string) => {
   const users = getUsers();
 
+  let updatedUser: any = null;
+
   const updatedUsers = users.map((u: any) => {
     if (u.email === email) {
-      return { ...u, is2FAEnabled: true };
+      updatedUser = { ...u, is2FAEnabled: true };
+      return updatedUser;
     }
     return u;
   });
 
+  if (!updatedUser) {
+    throw new Error("User not found");
+  }
+
+  saveUsers(updatedUsers);
+  localStorage.setItem(AUTH_KEY, JSON.stringify(updatedUser));
+
+  return updatedUser;
+};
+
+// ---------- RESET PASSWORD ----------
+export const resetPassword = (email: string, newPassword: string) => {
+  const users = getUsers();
+
+  let updatedUser: any = null;
+
+  const updatedUsers = users.map((u: any) => {
+    if (u.email === email) {
+      updatedUser = { ...u, password: newPassword };
+      return updatedUser;
+    }
+    return u;
+  });
+
+  if (!updatedUser) {
+    throw new Error("User not found");
+  }
+
   saveUsers(updatedUsers);
 
-  const user = updatedUsers.find((u: any) => u.email === email);
-  localStorage.setItem(AUTH_KEY, JSON.stringify(user));
+  // optional: keep user logged in synced
+  localStorage.setItem(AUTH_KEY, JSON.stringify(updatedUser));
 
-  return user;
+  return updatedUser;
 };
