@@ -49,7 +49,7 @@ function Success() {
           zIndex: 1,
           width: "100%",
           flexShrink: 0,
-          marginBottom: "139px",
+          marginBottom: "30px",
         }}
       >
         <AuthHeader
@@ -128,7 +128,7 @@ function Success() {
               <p
                 style={{
                   margin: 0,
-                  fontSize: theme.typography.fontSize.base,
+                  fontSize: theme.typography.fontSize.sm,
                   color: theme.colors.textSecondary,
                   fontFamily: theme.typography.fontFamily.primary,
                 }}
@@ -146,7 +146,7 @@ function Success() {
         </div>
       </div>
 
-      <div style={{ width: "100%", zIndex: 1, marginTop: "174px" }}>
+      <div style={{ width: "100%", zIndex: 1, marginTop: "30px" }}>
         <AuthFooter />
       </div>
     </div>

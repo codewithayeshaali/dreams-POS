@@ -1,4 +1,4 @@
-import theme from "./src/theme/index.js";
+import theme from "./src/theme/index.ts";
 
 /** @type {import('tailwindcss').Config} */
 export default {

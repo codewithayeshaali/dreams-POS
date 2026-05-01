@@ -2,8 +2,11 @@ const USERS_KEY = "users";
 const AUTH_KEY = "auth_user";
 export const getUsers = (): any[] => {
   try {
-    return JSON.parse(localStorage.getItem(USERS_KEY) || "[]");
-  } catch {
+    const data = localStorage.getItem(USERS_KEY);
+    if (!data) return [];
+    return JSON.parse(data);
+  } catch (err) {
+    console.error("Corrupted users data", err);
     return [];
   }
 };

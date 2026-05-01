@@ -91,7 +91,7 @@ function EmailVerification() {
       }}
     >
       <img
-        src={bg}
+         src={bg}
         alt=""
         aria-hidden="true"
         style={{
@@ -113,7 +113,7 @@ function EmailVerification() {
           zIndex: 1,
           width: "100%",
           flexShrink: 0,
-          marginBottom: "139px",
+          marginBottom: "30px",
         }}
       >
         <AuthHeader
@@ -157,7 +157,7 @@ function EmailVerification() {
               <p
                 style={{
                   margin: "6px 0 0",
-                  fontSize: theme.typography.fontSize.base,
+                  fontSize: theme.typography.fontSize.sm,
                   color: theme.colors.textSecondary,
                   fontFamily: theme.typography.fontFamily.primary,
                 }}
@@ -259,7 +259,7 @@ function EmailVerification() {
         </div>
       </div>
 
-      <div style={{ width: "100%", zIndex: 1, marginTop: "174px" }}>
+      <div style={{ width: "100%", zIndex: 1, marginTop: "30px" }}>
         <AuthFooter />
       </div>
     </div>

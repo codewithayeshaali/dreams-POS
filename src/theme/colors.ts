@@ -17,7 +17,7 @@ const colors = {
   textMuted: "#9CA3AF",
   checkboxtext: "#646B72",
 
-  bgBody: "#F8F9FB",
+  bgBody: "#F7F7F7",
   bgLight: "#FFF7F0",
   surface: "#FFFFFF",
 

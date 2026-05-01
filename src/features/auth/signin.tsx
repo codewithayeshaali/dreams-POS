@@ -60,9 +60,10 @@ function SignIn() {
         boxSizing: "border-box",
       }}
     >
-      <img
-        src={bg}
+     <img
+         src={bg}
         alt=""
+        aria-hidden="true"
         style={{
           position: "absolute",
           bottom: 0,
@@ -70,11 +71,12 @@ function SignIn() {
           width: "100%",
           height: "60%",
           objectFit: "cover",
+          objectPosition: "center top",
           zIndex: 0,
           pointerEvents: "none",
         }}
       />
-      <div style={{ position: "relative", zIndex: 1, marginBottom: "100px" }}>
+      <div style={{ position: "relative", zIndex: 1, marginBottom: "30px" }}>
         <AuthHeader
           logo={<img src={logo} alt="logo" style={{ height: "40px" }} />}
         />
@@ -219,7 +221,7 @@ function SignIn() {
         </div>
       </div>
 
-      <div style={{ width: "100%", zIndex: 1, marginTop: "174px" }}>
+      <div style={{ width: "100%", zIndex: 1, marginTop: "30px" }}>
         <AuthFooter />
       </div>
     </div>

@@ -67,8 +67,7 @@ function AdminForgotPassword() {
       imageSrc={photo}
     >
       <div style={{ width: "100%" }}>
-<div
-          style={{ width: "100%", maxWidth: "500px", boxSizing: "border-box" }}
+<div style={{ width: "100%", maxWidth: "500px", boxSizing: "border-box" }}
         >
           <Card padding="40px">
             <div style={{ marginBottom: "20px" }}>
@@ -86,7 +85,7 @@ function AdminForgotPassword() {
               <p
                 style={{
                   margin: "6px 0 0",
-                  fontSize: theme.typography.fontSize.base,
+                  fontSize: theme.typography.fontSize.sm,
                   color: theme.colors.textSecondary,
                   fontFamily: theme.typography.fontFamily.primary,
                 }}

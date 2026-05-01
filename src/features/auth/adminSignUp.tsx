@@ -95,7 +95,7 @@ function AdminSignUp() {
           <p
             style={{
               margin: "4px 0 0",
-              fontSize: theme.typography.fontSize.base,
+              fontSize: theme.typography.fontSize.sm,
               color: theme.colors.textSecondary,
               fontFamily: theme.typography.fontFamily.primary,
             }}
@@ -144,32 +144,32 @@ function AdminSignUp() {
               error={errors.confirm}
             />
             <div>
-              <Checkbox
-                label=""
-                checked={termPrivacy}
-                onChange={(e) => setTermPrivacy(e.target.checked)}
-                customLabel={
-                  <span
+              <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+                <Checkbox
+                  label=""
+                  checked={termPrivacy}
+                  onChange={(e) => setTermPrivacy(e.target.checked)}
+                />
+                <span
+                  style={{
+                    fontSize: theme.typography.fontSize.sm,
+                    color: theme.colors.textSecondary,
+                    fontFamily: theme.typography.fontFamily.primary,
+                  }}
+                >
+                  I agree to the{" "}
+                  <Link
+                    to="/terms"
                     style={{
-                      fontSize: theme.typography.fontSize.sm,
-                      color: theme.colors.textSecondary,
-                      fontFamily: theme.typography.fontFamily.primary,
+                      color: theme.colors.primary,
+                      fontWeight: theme.typography.fontWeight.semibold,
+                      textDecoration: "none",
                     }}
                   >
-                    I agree to the{" "}
-                    <Link
-                      to="/terms"
-                      style={{
-                        color: theme.colors.primary,
-                        fontWeight: theme.typography.fontWeight.semibold,
-                        textDecoration: "none",
-                      }}
-                    >
-                      Terms & Privacy
-                    </Link>
-                  </span>
-                }
-              />
+                    Terms & Privacy
+                  </Link>
+                </span>
+              </div>
               {errors.terms && (
                 <p
                   style={{

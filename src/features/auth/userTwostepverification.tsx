@@ -108,7 +108,7 @@ function UserTwoStepVerification() {
               <p
                 style={{
                   margin: "6px 0 0",
-                  fontSize: theme.typography.fontSize.base,
+                  fontSize: theme.typography.fontSize.sm,
                   color: theme.colors.textSecondary,
                   fontFamily: theme.typography.fontFamily.primary,
                 }}

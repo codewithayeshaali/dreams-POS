@@ -14,7 +14,7 @@ function Checkbox({ label, style, ...props }: CheckboxProps) {
         gap: "8px",
         cursor: "pointer",
         fontFamily: theme.typography.fontFamily.primary,
-        fontSize: theme.typography.fontSize.base,
+        fontSize: theme.typography.fontSize.sm,
         fontWeight: theme.typography.fontWeight.regular,
         color: theme.colors.checkboxtext,
         userSelect: "none",
