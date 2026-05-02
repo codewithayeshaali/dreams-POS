@@ -1,11 +1,12 @@
-import { InputHTMLAttributes } from "react";
+import { InputHTMLAttributes, ReactNode } from "react";
 import theme from "../../theme";
 
 interface CheckboxProps extends InputHTMLAttributes<HTMLInputElement> {
   label?: string;
+  customLabel?: ReactNode;
 }
 
-function Checkbox({ label, style, ...props }: CheckboxProps) {
+function Checkbox({ label, customLabel, style, ...props }: CheckboxProps) {
   return (
     <label
       style={{
@@ -35,7 +36,7 @@ function Checkbox({ label, style, ...props }: CheckboxProps) {
         }}
         {...props}
       />
-      {label && <span>{label}</span>}
+      {customLabel || (label && <span>{label}</span>)}
     </label>
   );
 }
