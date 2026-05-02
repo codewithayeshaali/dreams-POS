@@ -15,7 +15,7 @@ import UserForgotPassword from "../features/auth/userForgotPassword";
 import UserEmailVerification from "../features/auth/userEmailVerification";
 import UserSuccess from "../features/auth/userSuccess";
 import UserTwoStepVerification from "../features/auth/userTwostepverification";
-import UserResetPassword from "../features/auth/xyz";
+import UserResetPassword from "../features/auth/userResetPassword";
 
 import EmailVerification from "../features/auth/email-verification";
 import ForgotPassword from "../features/auth/forgot-password";
