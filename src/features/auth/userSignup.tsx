@@ -13,7 +13,7 @@ import { AuthFooter } from "../../shared/components/AuthFooter";
 import { AuthLayout } from "../../layout/AuthLayout2";
 import theme from "../../theme";
 import logo from "../../assets/image/logo.png";
-import illustration from "../../assets/image/signin.png";
+import illustration from "../../assets/image/register.png";
 
 function UserSignUp() {
   const navigate = useNavigate();

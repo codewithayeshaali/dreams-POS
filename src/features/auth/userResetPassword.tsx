@@ -10,7 +10,7 @@ import { AuthLayout } from "../../layout/AuthLayout2";
 
 import theme from "../../theme";
 import logo from "../../assets/image/logo.png";
-import illustration from "../../assets/image/signin.png";
+import illustration from "../../assets/image/reset.png";
 
 import { resetPassword } from "../../services/authService";
 

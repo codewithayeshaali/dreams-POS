@@ -1,9 +1,11 @@
+
 import { Navigate } from "react-router-dom";
 
 export default function ProtectedRoute({ children }: any) {
-  const token = localStorage.getItem("token");
 
-  if (!token) {
+  const user = localStorage.getItem("auth_user");
+
+  if (!user) {
     return <Navigate to="/admin/signin" replace />;
   }
 
